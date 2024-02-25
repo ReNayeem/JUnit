@@ -1,3 +1,4 @@
+import dev.failsafe.internal.util.Assert;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
@@ -118,6 +119,17 @@ public class TestsInDifferentSites {
                 System.out.println("num["+i+"]" + cell.getText());
             }
         }
+    }
+
+    @Test
+    public void handleIFrame() {
+        driver.get("https://demoqa.com/frames");
+//        here frame1 is iframes id
+        driver.switchTo().frame("frame1");
+        String text = driver.findElement(By.id("sampleHeading")).getText();
+        Assertions.assertTrue(text.contains("This is a sample page"));
+//        leaving iframe
+        driver.switchTo().defaultContent();
     }
 
     @AfterAll
