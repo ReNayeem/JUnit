@@ -59,15 +59,9 @@ public class TestsInDifferentSites {
     }
 
     @Test
-    public void takeSS() throws IOException, IOException {
+    public void takeNewSS() throws IOException {
         driver.get("https://google.com");
-
-//        need apache commons io from mvnrepo
-        File ss = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String name = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss-aa").format(new Date());
-        File saveLocation = new File("./src/test/resources/screenshots/" + name + ".png");
-        FileUtils.copyFile(ss, saveLocation);
-
+        Utils.takeSS(driver);
     }
 
     @AfterAll
