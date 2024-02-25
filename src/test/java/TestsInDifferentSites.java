@@ -1,8 +1,5 @@
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -11,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +66,19 @@ public class TestsInDifferentSites {
     public void uploadFile() {
         driver.get("https://demoqa.com/upload-download");
         driver.findElement(By.id("uploadFile")).sendKeys(System.getProperty("user.dir") + "./src/test/resources/screenshots/25-02-2024-08-17-05-PM.png");
+    }
+
+    @Test
+    public void handleMultipleTabs() throws InterruptedException {
+        driver.get("https://demoqa.com/browser-windows");
+        driver.findElement(By.id("tabButton")).click();
+        Thread.sleep(3000);
+        ArrayList<String> tabs = new ArrayList(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        String text = driver.findElement(By.id("sampleHeading")).getText();
+        Assertions.assertEquals(text, "This is a sample page");
+        driver.close();
+        driver.switchTo().window(tabs.get(0));
     }
 
     @AfterAll
