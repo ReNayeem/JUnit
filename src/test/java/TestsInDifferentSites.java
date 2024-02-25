@@ -104,6 +104,22 @@ public class TestsInDifferentSites {
         driver.switchTo().window(mainWindow);
     }
 
+    @Test
+    public void scrapData() {
+        driver.get("https://demoqa.com/webtables");
+        WebElement table = driver.findElement(By.className("rt-tbody"));
+        List<WebElement> allRows = table.findElements(By.className("rt-tr"));
+        int i = 0;
+        for (WebElement row : allRows){
+//            here cells meant that particular one rows columns
+            List<WebElement> cells = row.findElements(By.className("rt-td"));
+            for(WebElement cell : cells){
+                i++;
+                System.out.println("num["+i+"]" + cell.getText());
+            }
+        }
+    }
+
     @AfterAll
     public void closeDriver(){
 //        driver.quit();
