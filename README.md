@@ -7,3 +7,4 @@
 <h3>For searching same tag using console -> $x('//a') more ex using xpath: $x('//a[contains(text(), "Admissions")]' in code it will be: //a[contains(text(), \"Admissions\")]</h3>
 <h3>CSS selector -> id, name, className, type, tag</h3>
 <h3>XPATH -> absolute (not recommended), relative (recommended after CSS selector)</h3>
+<h3>for screenshots use apache commons io from mvnrepo</h3>
