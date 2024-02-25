@@ -64,6 +64,12 @@ public class TestsInDifferentSites {
         Utils.takeSS(driver);
     }
 
+    @Test
+    public void uploadFile() {
+        driver.get("https://demoqa.com/upload-download");
+        driver.findElement(By.id("uploadFile")).sendKeys(System.getProperty("user.dir") + "./src/test/resources/screenshots/25-02-2024-08-17-05-PM.png");
+    }
+
     @AfterAll
     public void closeDriver(){
 //        driver.quit();
