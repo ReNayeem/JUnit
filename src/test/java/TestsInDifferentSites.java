@@ -8,9 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestsInDifferentSites {
@@ -79,6 +77,31 @@ public class TestsInDifferentSites {
         Assertions.assertEquals(text, "This is a sample page");
         driver.close();
         driver.switchTo().window(tabs.get(0));
+    }
+
+    @Test
+    public void handleMultipleWindows() {
+        driver.get("https://demoqa.com/browser-windows");
+        driver.findElement(By.id("windowButton")).click();
+
+//        here getWindowHandle is main window
+        String mainWindow = driver.getWindowHandle();
+
+//        here getWindowHandles means all pop up or child windows including the main window
+        Set<String> allWindows = driver.getWindowHandles();
+
+        Iterator<String> iterator = allWindows.iterator();
+
+        while (iterator.hasNext()) {
+            String childWindow = iterator.next();
+            if (!mainWindow.equalsIgnoreCase(childWindow)){
+                driver.switchTo().window(childWindow);
+                String text = driver.findElement(By.id("sampleHeading")).getText();
+                Assertions.assertTrue(text.contains("This is a sample page"));
+            }
+        }
+        driver.close();
+        driver.switchTo().window(mainWindow);
     }
 
     @AfterAll
